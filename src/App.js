@@ -4,8 +4,11 @@ import Home from './pages/Home'
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
+import AuthProvider from './context/auth';
+
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
     <Navbar/>
     <Routes>
@@ -14,6 +17,7 @@ function App() {
       <Route exact path="/" element={<Home/>}/>
     </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
