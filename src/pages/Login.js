@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import {signInWithEmailAndPassword} from 'firebase/auth'
-import {auth, db} from '../firebase'
-import {updateDoc, doc} from 'firebase/firestore'
-import {useNavigate} from 'react-router-dom'
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth, db} from '../firebase';
+import {updateDoc, doc} from 'firebase/firestore';
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
     const [data,setData] = useState({
