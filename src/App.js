@@ -5,6 +5,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import AuthProvider from './context/auth';
+import PrivateRoute from './components/PrivateRoute';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -12,9 +14,10 @@ function App() {
     <BrowserRouter>
     <Navbar/>
     <Routes>
+      <Route exact path="/" element={<PrivateRoute><Home/></PrivateRoute>}/> 
       <Route exact path="/register" element={<Register/>}/>
       <Route exact path="/login" element={<Login/>}/>
-      <Route exact path="/" element={<Home/>}/>
+      <Route exact path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>}/>
     </Routes>
     </BrowserRouter>
     </AuthProvider>
