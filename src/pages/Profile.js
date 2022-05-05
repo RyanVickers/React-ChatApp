@@ -45,7 +45,7 @@ const Profile = () => {
       };
       uploadImg();
     }
-  }, [img, user.avatarPath]);
+  }, [img]);
 
   //Function to delete user profile image
   const deleteImage = async () => {
