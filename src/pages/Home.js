@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {db, auth, storage} from "../firebase";
-import {collection, query, where, orderBy, onSnapshot, addDoc, Timestamp} from "firebase/firestore";
+import {collection, query, where, orderBy, onSnapshot, addDoc, setDoc, getDoc, updateDoc, doc, Timestamp} from "firebase/firestore";
 import User from "../components/User"
 import MessageForm from "../components/MessageForm";
 import Message from "../components/Message";
@@ -29,7 +29,7 @@ const Home = () => {
         return () => unsub();
     },[]);
 
-    const selectUser = (user) => {
+    const selectUser = async (user) => {
         setChat(user);
 
         const user2 = user.uid
@@ -45,8 +45,14 @@ const Home = () => {
             });
             setMsgs(msgs);
         });
-    };
-    console.log(msgs)
+
+    const docSnap = await getDoc(doc(db, "lastMsg", id));
+
+    if (docSnap.data() && docSnap.data().from !== user1) {
+      await updateDoc(doc(db, "lastMsg", id), { unread: false });
+    }
+};
+
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -69,6 +75,16 @@ const Home = () => {
             createdAt: Timestamp.fromDate(new Date()),
             media: url || "",
           });
+
+          await setDoc(doc(db, "lastMsg", id), {
+            text,
+            from: user1,
+            to: user2,
+            createdAt: Timestamp.fromDate(new Date()),
+            media: url || "",
+            unread: true,
+          });
+
         setText("");
     }
 
