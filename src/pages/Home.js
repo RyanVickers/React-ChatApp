@@ -27,7 +27,7 @@ const Home = () => {
             setUsers(users);
         });
         return () => unsub();
-    },[]);
+    },[user1]);
 
     const selectUser = async (user) => {
         setChat(user);
